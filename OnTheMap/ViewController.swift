@@ -12,7 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        //NetworkConnector().getRequest(urlString: "https://parse.udacity.com/parse/classes/StudentLocation")
+        NetworkClient().getStudents()
+        //var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+      
     }
 
     override func didReceiveMemoryWarning() {

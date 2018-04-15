@@ -14,6 +14,12 @@
 		28A8A4092082F9A0000C487C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A8A4072082F9A0000C487C /* LaunchScreen.storyboard */; };
 		28A8A4142082F9A0000C487C /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A4132082F9A0000C487C /* OnTheMapTests.swift */; };
 		28A8A41F2082F9A0000C487C /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A41E2082F9A0000C487C /* OnTheMapUITests.swift */; };
+		28A8A42D2082FC8A000C487C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A42C2082FC8A000C487C /* Constants.swift */; };
+		28A8A42F20830F76000C487C /* NetworkConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A42E20830F76000C487C /* NetworkConnector.swift */; };
+		28A8A4312083E65D000C487C /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A4302083E65D000C487C /* Student.swift */; };
+		28A8A4332083ED8B000C487C /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A4322083ED8B000C487C /* NetworkClient.swift */; };
+		28A8A43520840235000C487C /* StudentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A43420840235000C487C /* StudentTableViewController.swift */; };
+		28A8A437208416D1000C487C /* StudentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A436208416D1000C487C /* StudentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +53,12 @@
 		28A8A41A2082F9A0000C487C /* OnTheMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A8A41E2082F9A0000C487C /* OnTheMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapUITests.swift; sourceTree = "<group>"; };
 		28A8A4202082F9A0000C487C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28A8A42C2082FC8A000C487C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		28A8A42E20830F76000C487C /* NetworkConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnector.swift; sourceTree = "<group>"; };
+		28A8A4302083E65D000C487C /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		28A8A4322083ED8B000C487C /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		28A8A43420840235000C487C /* StudentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableViewController.swift; sourceTree = "<group>"; };
+		28A8A436208416D1000C487C /* StudentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +111,16 @@
 			children = (
 				28A8A3FE2082F99C000C487C /* AppDelegate.swift */,
 				28A8A4002082F99C000C487C /* ViewController.swift */,
-				28A8A4022082F99C000C487C /* Main.storyboard */,
 				28A8A4052082F9A0000C487C /* Assets.xcassets */,
+				28A8A4022082F99C000C487C /* Main.storyboard */,
 				28A8A4072082F9A0000C487C /* LaunchScreen.storyboard */,
 				28A8A40A2082F9A0000C487C /* Info.plist */,
+				28A8A42C2082FC8A000C487C /* Constants.swift */,
+				28A8A42E20830F76000C487C /* NetworkConnector.swift */,
+				28A8A4302083E65D000C487C /* Student.swift */,
+				28A8A4322083ED8B000C487C /* NetworkClient.swift */,
+				28A8A43420840235000C487C /* StudentTableViewController.swift */,
+				28A8A436208416D1000C487C /* StudentTableViewCell.swift */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -256,8 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28A8A4332083ED8B000C487C /* NetworkClient.swift in Sources */,
 				28A8A4012082F99C000C487C /* ViewController.swift in Sources */,
 				28A8A3FF2082F99C000C487C /* AppDelegate.swift in Sources */,
+				28A8A42F20830F76000C487C /* NetworkConnector.swift in Sources */,
+				28A8A4312083E65D000C487C /* Student.swift in Sources */,
+				28A8A42D2082FC8A000C487C /* Constants.swift in Sources */,
+				28A8A43520840235000C487C /* StudentTableViewController.swift in Sources */,
+				28A8A437208416D1000C487C /* StudentTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
