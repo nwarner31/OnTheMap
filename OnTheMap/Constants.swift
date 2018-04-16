@@ -22,7 +22,7 @@ struct ParseReturnConstants {
     static let createdAt = "createdAt"
     static let updatedAt = "updatedAt"
     static let latitude = "latitude"
-    static let logitude = "logitude"
+    static let logitude = "longitude"
     static let mapString = "mapString"
     static let mediaURL = "mediaURL"
 }

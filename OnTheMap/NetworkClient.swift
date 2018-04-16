@@ -12,7 +12,9 @@ class NetworkClient {
   
     static var students: [Student] = [Student]()
     func getStudents() {
-        NetworkConnector().getRequest(urlString: "https://parse.udacity.com/parse/classes/StudentLocation") { (data, error) in
+        let networkConnector = NetworkConnector()
+        let request = networkConnector.buildURL(urlString: "https://parse.udacity.com/parse/classes/StudentLocation", method: "GET")
+        networkConnector.networkRequest(request: request) { (data, error) in
             
             let studentsDictionary = data![ParseReturnConstants.results] as! [[String: AnyObject]]
             var student: Student
