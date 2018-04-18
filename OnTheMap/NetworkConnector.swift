@@ -42,12 +42,15 @@ class NetworkConnector {
         var request = URLRequest(url: URL(string: urlString)!)
         request.addValue(Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        if ["POST", "PUT"].contains(method) {
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
         request.httpMethod = method
         return request
     }
     func buildURL(urlString: String, method: String, body: String) -> URLRequest {
-        let request = buildURL(urlString: urlString, method: method)
-        
+        var request = buildURL(urlString: urlString, method: method)
+        request.httpBody = body.data(using: .utf8)
         return request
     }
     func convertJsonToStudent (studentData: [String: AnyObject]) -> Student {

@@ -12,6 +12,7 @@ struct Constants {
     static let parseAppId = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
     static let restApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     static let studentLocationURL = "https://parse.udacity.com/parse/classes/StudentLocation"
+    static let udacitySessionURL = "https://www.udacity.com/api/session"
 }
 struct ParseReturnConstants {
     static let results = "results"

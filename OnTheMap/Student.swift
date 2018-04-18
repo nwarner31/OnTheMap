@@ -9,7 +9,7 @@
 import Foundation
 
 struct Student {
-    let objectId: String
+    var objectId: String
     let uniqueKey: String
     let firstName: String
     let lastName: String
@@ -17,8 +17,8 @@ struct Student {
     let mapString: String
     let latitude: Float
     let logitude: Float
-    let createdAt: String
-    let updatedAt: String
+    var createdAt: String
+    var updatedAt: String
     
     init(objectId: String, uniqueKey: String, firstName: String, lastName: String, mediaURL: String, mapString: String, latitude: Float, logitude: Float, createdAt: String, updatedAt: String) {
         self.objectId = objectId
@@ -31,5 +31,12 @@ struct Student {
         self.logitude = logitude
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+    }
+    mutating func updated(newUpdateTime: String) {
+        updatedAt = newUpdateTime
+    }
+    mutating func inserted(objectId: String, createdAt: String) {
+        self.objectId = objectId
+        self.createdAt = createdAt
     }
 }
