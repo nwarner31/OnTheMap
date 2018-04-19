@@ -32,6 +32,18 @@ struct Student {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
+    init(dictionary: [String: AnyObject]) {
+        objectId = dictionary[ParseReturnConstants.objectId] as? String ?? ""
+        uniqueKey = dictionary[ParseReturnConstants.uniqueKey] as? String ?? ""
+        firstName = dictionary[ParseReturnConstants.firstName] as? String ?? "(No First Name Given)"
+        lastName = dictionary[ParseReturnConstants.lastName] as? String ?? "(No Last Name Given)"
+        mediaURL = dictionary[ParseReturnConstants.mediaURL] as? String ?? ""
+        mapString = dictionary[ParseReturnConstants.mapString] as? String ?? ""
+        latitude = (dictionary[ParseReturnConstants.latitude] as? NSNumber)?.floatValue ?? 0.0
+        logitude = (dictionary[ParseReturnConstants.logitude] as? NSNumber)?.floatValue ?? 0.0
+        createdAt = dictionary[ParseReturnConstants.createdAt] as? String ?? ""
+        updatedAt = dictionary[ParseReturnConstants.updatedAt] as? String ?? ""
+    }
     mutating func updated(newUpdateTime: String) {
         updatedAt = newUpdateTime
     }
