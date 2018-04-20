@@ -21,6 +21,7 @@
 		28A8A43520840235000C487C /* StudentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A43420840235000C487C /* StudentTableViewController.swift */; };
 		28A8A437208416D1000C487C /* StudentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A436208416D1000C487C /* StudentTableViewCell.swift */; };
 		28A8A4392086F3DF000C487C /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A4382086F3DF000C487C /* LoginPageViewController.swift */; };
+		28A8A43B20891CE6000C487C /* StudentViewNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A43A20891CE6000C487C /* StudentViewNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		28A8A43420840235000C487C /* StudentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableViewController.swift; sourceTree = "<group>"; };
 		28A8A436208416D1000C487C /* StudentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableViewCell.swift; sourceTree = "<group>"; };
 		28A8A4382086F3DF000C487C /* LoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		28A8A43A20891CE6000C487C /* StudentViewNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentViewNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				28A8A43420840235000C487C /* StudentTableViewController.swift */,
 				28A8A436208416D1000C487C /* StudentTableViewCell.swift */,
 				28A8A4382086F3DF000C487C /* LoginPageViewController.swift */,
+				28A8A43A20891CE6000C487C /* StudentViewNavigationBar.swift */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			files = (
 				28A8A4332083ED8B000C487C /* NetworkClient.swift in Sources */,
 				28A8A4012082F99C000C487C /* StudentMapViewController.swift in Sources */,
+				28A8A43B20891CE6000C487C /* StudentViewNavigationBar.swift in Sources */,
 				28A8A3FF2082F99C000C487C /* AppDelegate.swift in Sources */,
 				28A8A4392086F3DF000C487C /* LoginPageViewController.swift in Sources */,
 				28A8A42F20830F76000C487C /* NetworkConnector.swift in Sources */,

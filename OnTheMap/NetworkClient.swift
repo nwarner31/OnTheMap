@@ -38,6 +38,24 @@ class NetworkClient {
             }
         }
     }
+    func logout(completionHandler: @escaping () -> Void) {
+        let networkConnector = NetworkConnector()
+        var request = networkConnector.buildURL(urlString: Constants.udacitySessionURL, method: "DELETE", headers: [String: String]())
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" {
+                xsrfCookie = cookie
+            }
+        }
+        if let xsrfCookie = xsrfCookie {
+            print(xsrfCookie.value)
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+            networkConnector.networkRequest(request: request) { (data, error) in
+                completionHandler()
+            }
+        }
+    }
     
     static var students = [Student]()
     static var sessionId = 0

@@ -11,6 +11,13 @@ import UIKit
 
 class StudentTableViewController: UITableViewController {
     
+    @IBAction func logout(_ sender: Any) {
+        NetworkClient().logout() { () in
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return NetworkClient.students.count
     }

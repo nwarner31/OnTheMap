@@ -20,6 +20,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = true 
         // The "locations" array is an array of dictionary objects that are similar to the JSON
         // data that you can download from parse.
         //let locations = hardCodedLocationData()
@@ -74,6 +75,13 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             
         }
         studentMapView.delegate = self
+    }
+    @IBAction func logout(_ sender: Any) {
+        NetworkClient().logout() { () in
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
     }
     
     // MARK: - MKMapViewDelegate
