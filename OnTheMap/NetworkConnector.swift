@@ -10,25 +10,31 @@ import Foundation
 
 class NetworkConnector {
     
-    func networkRequest(request: URLRequest, completionHandler: @escaping (_ data: AnyObject?, _ error: NSError?) -> Void) {
+    func networkRequest(request: URLRequest, completionHandler: @escaping (_ data: AnyObject?, _ error: String?) -> Void) {
         //let request = buildURL(urlString: urlString)
+        if !Reachability.isConnectedToNetwork() {
+            print("no network")
+            completionHandler(nil, "There is no internet connection")
+            return
+        }
+        print("after check")
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
+           
+            
             guard error == nil else {
-                completionHandler(nil, nil)
+                completionHandler(nil, "There was an error in the request")
                 return
             }
             //print((response as? HTTPURLResponse)?.statusCode)
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your request returned a status code other than 2xx!")
-                completionHandler(nil, nil)
+                completionHandler(nil, "Your request returned a status code other than 2xx!")
                 return
             }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                print("No data was returned by the request!")
-                completionHandler(nil, nil)
+                completionHandler(nil, "No data was returned by the request!")
                 return
             }
             var parsedData: AnyObject! = nil
@@ -39,7 +45,7 @@ class NetworkConnector {
                     let udacityData = data.subdata(in: Range(5..<data.count))
                     parsedData = try JSONSerialization.jsonObject(with: udacityData, options: .allowFragments) as AnyObject
                 } catch {
-                    completionHandler(nil, nil)
+                    completionHandler(nil, "Unable to parse data")
                 }
             }
                 completionHandler(parsedData, nil)

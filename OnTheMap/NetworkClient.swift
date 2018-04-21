@@ -9,17 +9,31 @@
 import Foundation
 
 class NetworkClient {
-  
-    func udacityLogin(userName: String, password: String, completionHandler: @escaping (_ wasSuccessful: Bool) -> Void) {
+    static var students = [Student]()
+    static var sessionId = 0
+    static var studentId = "0"
+    static var myFirstName = "0"
+    static var myLastName = "0"
+    
+    
+    func udacityLogin(userName: String, password: String, completionHandler: @escaping (_ : String) -> Void) {
         let networkConnector = NetworkConnector()
         let headers = Headers.accept.merging(Headers.contentType) { (current, _) in current }
         let body = "{\"udacity\": { \"username\": \"\(userName)\", \"password\": \"\(password)\"}}"
         var request = networkConnector.buildURL(urlString: Constants.udacitySessionURL, method: "POST", headers: headers, body: body)
         networkConnector.networkRequest(request: request) { (data, error) in
+            guard error == nil else {
+                var errorMessage = ""
+                if error == "Your request returned a status code other than 2xx!" {
+                    errorMessage = "Incorrect username or password. Please check to make sure that they are entered correctly"
+                } else {
+                    errorMessage = error!
+                }
+                print(errorMessage)
+                completionHandler(errorMessage)
+                return
+            }
             if let data = data, let studentId = (data["account"] as! [String: AnyObject])["key"] as? String {
-                print(data)
-                print((data["account"] as! [String: AnyObject])["key"])
-                print(studentId)
                 NetworkClient.studentId = studentId
                 let urlString = "\(Constants.udacityUserURL)\(studentId)"
                 request = networkConnector.buildURL(urlString: urlString, method: "GET", headers: [String: String]())
@@ -29,12 +43,12 @@ class NetworkClient {
                         NetworkClient.myFirstName = firstName
                         NetworkClient.myLastName = lastName
                         print("\(firstName) \(lastName)")
-                        completionHandler(true)
+                        completionHandler("successful")
                     }
                     
                 }
             } else {
-                completionHandler(false)
+                completionHandler("Unknown failure")
             }
         }
     }
@@ -57,11 +71,7 @@ class NetworkClient {
         }
     }
     
-    static var students = [Student]()
-    static var sessionId = 0
-    static var studentId = "0"
-    static var myFirstName = "0"
-    static var myLastName = "0"
+    
     func getStudents(completionHandler: @escaping () -> Void) {
         let networkConnector = NetworkConnector()
         let headers = Headers.parseHeaders
@@ -93,18 +103,4 @@ class NetworkClient {
             }
         }
     }
-    func updateStudent(student: Student) {
-        let networkConnector = NetworkConnector()
-        var student = student
-        let studentData = networkConnector.convertStudentToJson(student: student)
-        let headers = Headers.parseHeaders.merging(Headers.contentType) { (current, _) in current }
-        let request = networkConnector.buildURL(urlString: "\(Constants.studentLocationURL)/\(student.objectId)", method: "PUT", headers: headers, body: studentData)
-        networkConnector.networkRequest(request: request) { (data, error) in
-            if let data = data {
-                let updatedAt = data[ParseReturnConstants.updatedAt] as! String
-                student.updated(newUpdateTime: updatedAt)
-            }
-        }
-    }
-    
 }

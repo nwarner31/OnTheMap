@@ -18,6 +18,12 @@ class StudentTableViewController: UITableViewController {
             }
         }
     }
+    @IBAction func createPin(_ sender: Any) {
+        let insertPinViewController = self.storyboard?.instantiateViewController(withIdentifier: "insertPin")
+        present(insertPinViewController!, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(tabView!, animated: true)
+        
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return NetworkClient.students.count
     }
@@ -31,7 +37,8 @@ class StudentTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let student = NetworkClient.students[indexPath.row]
-        NetworkConnector().convertStudentToJson(student: student)
+        let app = UIApplication.shared
+        app.open(URL(string: student.mediaURL)! )
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(65.0)

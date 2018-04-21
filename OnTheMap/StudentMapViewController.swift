@@ -83,6 +83,10 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    @IBAction func createPin(_ sender: Any) {
+        let insertPinViewController = self.storyboard?.instantiateViewController(withIdentifier: "insertPin")
+        present(insertPinViewController!, animated: true, completion: nil)
+    }
     
     // MARK: - MKMapViewDelegate
     
