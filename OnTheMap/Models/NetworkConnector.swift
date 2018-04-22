@@ -9,15 +9,12 @@
 import Foundation
 
 class NetworkConnector {
-    
+    // Performs all network requests
     func networkRequest(request: URLRequest, completionHandler: @escaping (_ data: AnyObject?, _ error: String?) -> Void) {
-        //let request = buildURL(urlString: urlString)
         if !Reachability.isConnectedToNetwork() {
-            print("no network")
             completionHandler(nil, "There is no internet connection")
             return
         }
-        print("after check")
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
            
@@ -26,13 +23,10 @@ class NetworkConnector {
                 completionHandler(nil, "There was an error in the request")
                 return
             }
-            //print((response as? HTTPURLResponse)?.statusCode)
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 completionHandler(nil, "Your request returned a status code other than 2xx!")
                 return
             }
-            
-            /* GUARD: Was there any data returned? */
             guard let data = data else {
                 completionHandler(nil, "No data was returned by the request!")
                 return
@@ -66,9 +60,9 @@ class NetworkConnector {
         request.httpBody = body.data(using: .utf8)
         return request
     }
+    // Creates the JSON for submitting the student's information to the server.
     func convertStudentToJson(student: Student) -> String {
         let studentData = "{\"\(ParseReturnConstants.uniqueKey)\": \"\(student.uniqueKey)\", \"\(ParseReturnConstants.firstName)\": \"\(student.firstName)\", \"\(ParseReturnConstants.lastName)\": \"\(student.lastName)\", \"\(ParseReturnConstants.mapString)\": \"\(student.mapString)\", \"\(ParseReturnConstants.mediaURL)\": \"\(student.mediaURL)\", \"\(ParseReturnConstants.latitude)\": \(student.latitude), \"\(ParseReturnConstants.logitude)\": \(student.logitude)}"
-        print(studentData)
         return studentData
     }
 }

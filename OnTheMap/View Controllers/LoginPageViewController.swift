@@ -19,6 +19,8 @@ class LoginPageViewController: UIViewController {
             NetworkClient().udacityLogin(userName: email, password: password) { (wasSuccessful) in
                 DispatchQueue.main.async {
                     if wasSuccessful == "successful" {
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
                         let tabView = self.storyboard?.instantiateViewController(withIdentifier: "studentLocatorTabView")
                         self.navigationController?.pushViewController(tabView!, animated: true)
                     } else {

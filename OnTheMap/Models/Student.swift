@@ -32,6 +32,7 @@ struct Student {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
+    // Used to create a student from JSON
     init(dictionary: [String: AnyObject]) {
         objectId = dictionary[ParseReturnConstants.objectId] as? String ?? ""
         uniqueKey = dictionary[ParseReturnConstants.uniqueKey] as? String ?? ""
@@ -43,9 +44,6 @@ struct Student {
         logitude = (dictionary[ParseReturnConstants.logitude] as? NSNumber)?.floatValue ?? 0.0
         createdAt = dictionary[ParseReturnConstants.createdAt] as? String ?? ""
         updatedAt = dictionary[ParseReturnConstants.updatedAt] as? String ?? ""
-    }
-    mutating func updated(newUpdateTime: String) {
-        updatedAt = newUpdateTime
     }
     mutating func inserted(objectId: String, createdAt: String) {
         self.objectId = objectId
