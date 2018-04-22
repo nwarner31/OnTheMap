@@ -24,7 +24,6 @@ class LoginPageViewController: UIViewController {
                         let tabView = self.storyboard?.instantiateViewController(withIdentifier: "studentLocatorTabView")
                         self.navigationController?.pushViewController(tabView!, animated: true)
                     } else {
-                
                         self.errorLabel.text = wasSuccessful
                      }
                 }

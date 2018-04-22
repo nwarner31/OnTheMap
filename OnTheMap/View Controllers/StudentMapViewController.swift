@@ -10,15 +10,10 @@ import UIKit
 import MapKit
 
 class StudentMapViewController: UIViewController, MKMapViewDelegate {
-    // The map. See the setup in the Storyboard file. Note particularly that the view controller
-    // is set up as the map view's delegate.
     @IBOutlet weak var studentMapView: MKMapView!
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.isNavigationBarHidden = true 
-        // The "locations" array is an array of dictionary objects that are similar to the JSON
-        // data that you can download from parse.
-        //let locations = hardCodedLocationData()
+        navigationController?.isNavigationBarHidden = true
         if NetworkClient.students.count == 0 {
             attemptToGetStudents(true)
         } else {
@@ -59,17 +54,11 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
-        
-        // The "locations" array is loaded with the sample data below. We are using the dictionaries
-        // to create map annotations. This would be more stylish if the dictionaries were being
-        // used to create custom structs. Perhaps StudentLocation structs.
         for student in NetworkClient.students {
-            
             let annotation = self.createAnnotation(student: student)
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
         }
-        
         // When the array is complete, we add the annotations to the map.
         DispatchQueue.main.async {
             // If there are already pins in the map remove them
@@ -89,7 +78,6 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         
         // The lat and long are used to create a CLLocationCoordinates2D instance.
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        
         let first = student.firstName
         let last = student.lastName
         // Here we create the annotation and set its coordiate, title, and subtitle properties
@@ -111,18 +99,14 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         let insertPinViewController = self.storyboard?.instantiateViewController(withIdentifier: "insertPin")
         present(insertPinViewController!, animated: true, completion: nil)
     }
-    
     // MARK: - MKMapViewDelegate
     
     // Here we create a view with a "right callout accessory view". You might choose to look into other
     // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
     // method in TableViewDataSource.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         let reuseId = "pin"
-        
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-        
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
@@ -135,8 +119,6 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
-    
-    
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {

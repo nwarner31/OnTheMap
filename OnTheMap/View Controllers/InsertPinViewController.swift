@@ -18,8 +18,6 @@ class InsertPinViewController: UIViewController {
     var locationString = ""
     var latitude: Float = 0.0
     var longitude: Float = 0.0
-    var pinObjectId = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +47,7 @@ class InsertPinViewController: UIViewController {
     @IBAction func submitPin(_ sender: Any) {
         let mediaUrl = NetworkClient().validateUrl(stringToCheck: mediaURLTextField.text!)
         
-        let student = Student(objectId: pinObjectId, uniqueKey: NetworkClient.studentId, firstName: NetworkClient.myFirstName, lastName: NetworkClient.myLastName, mediaURL: mediaUrl, mapString: locationString, latitude: latitude, logitude: longitude, createdAt: "", updatedAt: "")
+        let student = Student(objectId: "", uniqueKey: NetworkClient.studentId, firstName: NetworkClient.myFirstName, lastName: NetworkClient.myLastName, mediaURL: mediaUrl, mapString: locationString, latitude: latitude, logitude: longitude, createdAt: "", updatedAt: "")
         NetworkClient().insertStudent(student: student) { (wasSuccessful, insertedStudent) in
             if wasSuccessful {
                 DispatchQueue.main.async {

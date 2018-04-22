@@ -17,8 +17,6 @@ class NetworkConnector {
         }
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-           
-            
             guard error == nil else {
                 completionHandler(nil, "There was an error in the request")
                 return
@@ -43,7 +41,6 @@ class NetworkConnector {
                 }
             }
                 completionHandler(parsedData, nil)
-            
         }
         task.resume()
     }

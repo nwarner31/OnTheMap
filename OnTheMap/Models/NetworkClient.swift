@@ -15,7 +15,6 @@ class NetworkClient {
     static var myFirstName = "0"
     static var myLastName = "0"
     
-    
     func udacityLogin(userName: String, password: String, completionHandler: @escaping (_ : String) -> Void) {
         let networkConnector = NetworkConnector()
         let headers = Headers.accept.merging(Headers.contentType) { (current, _) in current }
