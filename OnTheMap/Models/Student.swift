@@ -9,6 +9,8 @@
 import Foundation
 
 struct Student {
+    static var students = [Student]()
+    
     var objectId: String
     let uniqueKey: String
     let firstName: String

@@ -27,17 +27,17 @@ class StudentTableViewController: UITableViewController {
         present(insertPinViewController!, animated: true, completion: nil)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NetworkClient.students.count
+        return Student.students.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let student = NetworkClient.students[indexPath.row]
+        let student = Student.students[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentTableCell") as! StudentTableViewCell
         cell.studentNameLabel.text = "\(student.lastName), \(student.firstName)"
         cell.studentLocationLabel.text = student.mapString
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let student = NetworkClient.students[indexPath.row]
+        let student = Student.students[indexPath.row]
         let app = UIApplication.shared
         let url = NetworkClient().validateUrl(stringToCheck: student.mediaURL)
         app.open(URL(string: url)!)

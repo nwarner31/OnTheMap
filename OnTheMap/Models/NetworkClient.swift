@@ -9,7 +9,6 @@
 import Foundation
 
 class NetworkClient {
-    static var students = [Student]()
     static var sessionId = 0
     static var studentId = "0"
     static var myFirstName = "0"
@@ -67,7 +66,9 @@ class NetworkClient {
     func getStudents(completionHandler: @escaping (_ wasSuccessful: Bool) -> Void) {
         let networkConnector = NetworkConnector()
         let headers = Headers.parseHeaders
-        let request = networkConnector.buildURL(urlString: Constants.studentLocationURL, method: "GET", headers: headers)
+        let urlString = "\(Constants.studentLocationURL)?limit=100&order=-updatedAt"
+        let request = networkConnector.buildURL(urlString: urlString, method: "GET", headers: headers)
+        
         networkConnector.networkRequest(request: request) { (data, error) in
             guard error == nil else {
                 completionHandler(false)
@@ -77,7 +78,7 @@ class NetworkClient {
             var student: Student
             for studentDictionary in studentsDictionary {
                 student = Student(dictionary: studentDictionary)
-                NetworkClient.students.append(student)
+                Student.students.append(student)
             }
             completionHandler(true)
         }

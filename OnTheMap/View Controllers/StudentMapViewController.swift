@@ -14,7 +14,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        if NetworkClient.students.count == 0 {
+        if Student.students.count == 0 {
             attemptToGetStudents(true)
         } else {
             setUpMapPins()
@@ -54,7 +54,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
-        for student in NetworkClient.students {
+        for student in Student.students {
             let annotation = self.createAnnotation(student: student)
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)

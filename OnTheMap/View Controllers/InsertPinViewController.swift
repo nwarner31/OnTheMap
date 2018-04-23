@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 import MapKit
 
-class InsertPinViewController: UIViewController {
+class InsertPinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var locationSearchTextField: UITextField!
     @IBOutlet weak var mediaURLTextField: UITextField!
     @IBOutlet weak var studentLocationMapView: MKMapView!
+    @IBOutlet weak var geocodingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var submitButton: UIButton!
     var locationString = ""
     var latitude: Float = 0.0
@@ -23,16 +24,45 @@ class InsertPinViewController: UIViewController {
         super.viewDidLoad()
         submitButton.isEnabled = false
         submitButton.backgroundColor = UIColor.gray
+        mediaURLTextField.delegate = self
+        locationSearchTextField.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     @IBAction func searchLocation(_ sender: Any) {
         guard let location = locationSearchTextField.text else { return }
+        geocodingActivityIndicator.startAnimating()
         let geo = CLGeocoder()
         geo.geocodeAddressString(location) { (placemarks, error) in
             guard error == nil else {
+                let alert = UIAlertController(title: "Error", message: "Unable to find location. Please try another location name.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                    self.geocodingActivityIndicator.stopAnimating()
+                }))
+                self.present(alert, animated: true)
                 return
             }
-            guard let placemarks = placemarks else { return }
+            guard let placemarks = placemarks else {
+                self.geocodingActivityIndicator.stopAnimating()
+                return
+            }
             let city = placemarks[0]
             let studentPin = MKPlacemark(placemark: city)
             self.latitude = Float(studentPin.coordinate.latitude)
@@ -42,6 +72,10 @@ class InsertPinViewController: UIViewController {
             self.studentLocationMapView.setRegion(MKCoordinateRegionMakeWithDistance(studentPin.coordinate, 10000, 10000), animated: true)
             self.submitButton.isEnabled = true
             self.submitButton.backgroundColor = UIColor.blue
+            if self.locationSearchTextField.isEditing {
+                self.locationSearchTextField.resignFirstResponder()
+            }
+            self.geocodingActivityIndicator.stopAnimating()
         }
     }
     @IBAction func submitPin(_ sender: Any) {
@@ -51,7 +85,7 @@ class InsertPinViewController: UIViewController {
         NetworkClient().insertStudent(student: student) { (wasSuccessful, insertedStudent) in
             if wasSuccessful {
                 DispatchQueue.main.async {
-                    NetworkClient.students.insert(insertedStudent!, at: 0)
+                    Student.students.insert(insertedStudent!, at: 0)
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
@@ -88,5 +122,26 @@ class InsertPinViewController: UIViewController {
                 }
             }
         }
+    }
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if mediaURLTextField.isEditing {
+            view.frame.origin.y = -1 * getKeyboardHeight(notification)
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        view.frame.origin.y = 0
+    }
+    func getKeyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
     }
 }

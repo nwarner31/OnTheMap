@@ -9,11 +9,18 @@
 import Foundation
 import UIKit
 
-class LoginPageViewController: UIViewController {
+class LoginPageViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
     @IBAction func loginWithUdacity(sender: UIButton) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             NetworkClient().udacityLogin(userName: email, password: password) { (wasSuccessful) in
@@ -29,5 +36,12 @@ class LoginPageViewController: UIViewController {
                 }
             }
         }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
