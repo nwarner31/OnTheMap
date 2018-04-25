@@ -9,6 +9,7 @@
 import Foundation
 
 class NetworkConnector {
+    
     // Performs all network requests
     func networkRequest(request: URLRequest, completionHandler: @escaping (_ data: AnyObject?, _ error: String?) -> Void) {
         if !Reachability.isConnectedToNetwork() {
@@ -44,6 +45,7 @@ class NetworkConnector {
         }
         task.resume()
     }
+    
     func buildURL(urlString: String, method: String, headers: [String: String]) -> URLRequest {
         var request = URLRequest(url: URL(string: urlString)!)
         for header in headers {
@@ -52,11 +54,13 @@ class NetworkConnector {
         request.httpMethod = method
         return request
     }
+    
     func buildURL(urlString: String, method: String, headers: [String: String], body: String) -> URLRequest {
         var request = buildURL(urlString: urlString, method: method, headers: headers)
         request.httpBody = body.data(using: .utf8)
         return request
     }
+    
     // Creates the JSON for submitting the student's information to the server.
     func convertStudentToJson(student: Student) -> String {
         let studentData = "{\"\(ParseReturnConstants.uniqueKey)\": \"\(student.uniqueKey)\", \"\(ParseReturnConstants.firstName)\": \"\(student.firstName)\", \"\(ParseReturnConstants.lastName)\": \"\(student.lastName)\", \"\(ParseReturnConstants.mapString)\": \"\(student.mapString)\", \"\(ParseReturnConstants.mediaURL)\": \"\(student.mediaURL)\", \"\(ParseReturnConstants.latitude)\": \(student.latitude), \"\(ParseReturnConstants.logitude)\": \(student.logitude)}"

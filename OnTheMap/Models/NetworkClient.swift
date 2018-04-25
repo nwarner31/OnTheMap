@@ -46,6 +46,7 @@ class NetworkClient {
             }
         }
     }
+    
     func logout(completionHandler: @escaping () -> Void) {
         let networkConnector = NetworkConnector()
         var request = networkConnector.buildURL(urlString: Constants.udacitySessionURL, method: "DELETE", headers: [String: String]())
@@ -63,6 +64,7 @@ class NetworkClient {
             }
         }
     }
+    
     func getStudents(completionHandler: @escaping (_ wasSuccessful: Bool) -> Void) {
         let networkConnector = NetworkConnector()
         let headers = Headers.parseHeaders
@@ -78,11 +80,12 @@ class NetworkClient {
             var student: Student
             for studentDictionary in studentsDictionary {
                 student = Student(dictionary: studentDictionary)
-                Student.students.append(student)
+                StudentsDataSource.students.append(student)
             }
             completionHandler(true)
         }
     }
+    
     func insertStudent(student: Student, completionHandler: @escaping (_ wasSuccessful: Bool, _ student: Student?) -> Void) {
         let networkConnector = NetworkConnector()
         var student = student
@@ -102,6 +105,7 @@ class NetworkClient {
             }
         }
     }
+    
     // Ensures the URL submitted to the server is valid and the one in the map and table view
     func validateUrl(stringToCheck: String) -> String {
         var url: String

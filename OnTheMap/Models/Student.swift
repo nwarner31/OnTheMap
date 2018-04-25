@@ -9,7 +9,6 @@
 import Foundation
 
 struct Student {
-    static var students = [Student]()
     
     var objectId: String
     let uniqueKey: String
@@ -34,6 +33,7 @@ struct Student {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
+    
     // Used to create a student from JSON
     init(dictionary: [String: AnyObject]) {
         objectId = dictionary[ParseReturnConstants.objectId] as? String ?? ""
@@ -47,6 +47,7 @@ struct Student {
         createdAt = dictionary[ParseReturnConstants.createdAt] as? String ?? ""
         updatedAt = dictionary[ParseReturnConstants.updatedAt] as? String ?? ""
     }
+    
     mutating func inserted(objectId: String, createdAt: String) {
         self.objectId = objectId
         self.createdAt = createdAt

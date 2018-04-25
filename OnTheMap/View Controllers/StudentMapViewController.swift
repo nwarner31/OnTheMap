@@ -10,17 +10,20 @@ import UIKit
 import MapKit
 
 class StudentMapViewController: UIViewController, MKMapViewDelegate {
+    
     @IBOutlet weak var studentMapView: MKMapView!
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        if Student.students.count == 0 {
+        if StudentsDataSource.students.isEmpty {
             attemptToGetStudents(true)
         } else {
             setUpMapPins()
         }
         studentMapView.delegate = self
     }
+    
     func attemptToGetStudents(_ isFirstAttempt: Bool) {
         NetworkClient().getStudents() { (wasSuccessful) in
             if wasSuccessful {
@@ -50,11 +53,12 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
     func setUpMapPins() {
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
-        for student in Student.students {
+        for student in StudentsDataSource.students {
             let annotation = self.createAnnotation(student: student)
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
@@ -70,6 +74,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             self.studentMapView.addAnnotations(annotations)
         }
     }
+    
     func createAnnotation(student: Student) -> MKPointAnnotation {
         // Notice that the float values are being used to create CLLocationDegree values.
         // This is a version of the Double type.
@@ -88,6 +93,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         annotation.subtitle = url
         return annotation
     }
+    
     @IBAction func logout(_ sender: Any) {
         NetworkClient().logout() { () in
             DispatchQueue.main.async {
@@ -95,10 +101,14 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
     @IBAction func createPin(_ sender: Any) {
         let insertPinViewController = self.storyboard?.instantiateViewController(withIdentifier: "insertPin")
         present(insertPinViewController!, animated: true, completion: nil)
     }
+}
+
+extension StudentMapViewController {
     // MARK: - MKMapViewDelegate
     
     // Here we create a view with a "right callout accessory view". You might choose to look into other
@@ -119,6 +129,7 @@ class StudentMapViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
+    
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {

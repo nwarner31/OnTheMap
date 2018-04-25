@@ -11,6 +11,7 @@ import UIKit
 import MapKit
 
 class InsertPinViewController: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var locationSearchTextField: UITextField!
     @IBOutlet weak var mediaURLTextField: UITextField!
     @IBOutlet weak var studentLocationMapView: MKMapView!
@@ -30,21 +31,26 @@ class InsertPinViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tapGesture)
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
     @IBAction func searchLocation(_ sender: Any) {
         guard let location = locationSearchTextField.text else { return }
         geocodingActivityIndicator.startAnimating()
@@ -78,6 +84,7 @@ class InsertPinViewController: UIViewController, UITextFieldDelegate {
             self.geocodingActivityIndicator.stopAnimating()
         }
     }
+    
     @IBAction func submitPin(_ sender: Any) {
         let mediaUrl = NetworkClient().validateUrl(stringToCheck: mediaURLTextField.text!)
         
@@ -85,7 +92,7 @@ class InsertPinViewController: UIViewController, UITextFieldDelegate {
         NetworkClient().insertStudent(student: student) { (wasSuccessful, insertedStudent) in
             if wasSuccessful {
                 DispatchQueue.main.async {
-                    Student.students.insert(insertedStudent!, at: 0)
+                    StudentsDataSource.students.insert(insertedStudent!, at: 0)
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
@@ -103,9 +110,11 @@ class InsertPinViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
     @IBAction func cancelPin(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     func resubmitPin(student: Student) {
         NetworkClient().insertStudent(student: student) { (wasSuccessful, insertedStudent) in
             if wasSuccessful {
@@ -123,22 +132,26 @@ class InsertPinViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
+    
     func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         if mediaURLTextField.isEditing {
-            view.frame.origin.y = -1 * getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
+    
     @objc func keyboardWillHide(_ notification: Notification) {
         view.frame.origin.y = 0
     }
+    
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect

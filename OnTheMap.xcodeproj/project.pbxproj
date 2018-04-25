@@ -21,6 +21,7 @@
 		28A8A4392086F3DF000C487C /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A4382086F3DF000C487C /* LoginPageViewController.swift */; };
 		28A8A43D2089831D000C487C /* InsertPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A43C2089831D000C487C /* InsertPinViewController.swift */; };
 		28A8A441208AED4D000C487C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A440208AED4D000C487C /* Reachability.swift */; };
+		28A8A44920901634000C487C /* StudentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8A44820901634000C487C /* StudentsDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		28A8A4382086F3DF000C487C /* LoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		28A8A43C2089831D000C487C /* InsertPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertPinViewController.swift; sourceTree = "<group>"; };
 		28A8A440208AED4D000C487C /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		28A8A44820901634000C487C /* StudentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				28A8A440208AED4D000C487C /* Reachability.swift */,
 				28A8A4322083ED8B000C487C /* NetworkClient.swift */,
 				28A8A42C2082FC8A000C487C /* Constants.swift */,
+				28A8A44820901634000C487C /* StudentsDataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				28A8A4012082F99C000C487C /* StudentMapViewController.swift in Sources */,
 				28A8A3FF2082F99C000C487C /* AppDelegate.swift in Sources */,
 				28A8A4392086F3DF000C487C /* LoginPageViewController.swift in Sources */,
+				28A8A44920901634000C487C /* StudentsDataSource.swift in Sources */,
 				28A8A42F20830F76000C487C /* NetworkConnector.swift in Sources */,
 				28A8A43D2089831D000C487C /* InsertPinViewController.swift in Sources */,
 				28A8A4312083E65D000C487C /* Student.swift in Sources */,

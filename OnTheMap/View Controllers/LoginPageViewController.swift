@@ -21,6 +21,7 @@ class LoginPageViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
+    
     @IBAction func loginWithUdacity(sender: UIButton) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             NetworkClient().udacityLogin(userName: email, password: password) { (wasSuccessful) in
@@ -37,10 +38,12 @@ class LoginPageViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }

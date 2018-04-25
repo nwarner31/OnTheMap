@@ -15,12 +15,14 @@ struct Constants {
     static let udacitySessionURL = "https://www.udacity.com/api/session"
     static let udacityUserURL = "https://www.udacity.com/api/users/"
 }
+
 struct Headers {
     static let parseHeaders = ["X-Parse-Application-Id": "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr",
                                "X-Parse-REST-API-Key":"QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"]
     static let contentType = ["Content-Type": "application/json"]
     static let accept = ["Accept": "application/json"]
 }
+
 struct ParseReturnConstants {
     static let results = "results"
     static let objectId = "objectId"
